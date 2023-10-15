@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Index from '@/layout/index.vue'
+</script>
 
 <template>
-  <div>app</div>
+  <Index />
 </template>

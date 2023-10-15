@@ -1,0 +1,79 @@
+// 代码来自 element-plus-icons https://github.com/element-plus/element-plus-icons/blob/main/packages/vue/build/generate.ts
+// 稍微调整了部分代码
+
+import path from 'node:path'
+import { readFile, writeFile } from 'node:fs/promises'
+import { emptyDir, ensureDir } from 'fs-extra'
+import consola from 'consola'
+import camelcase from 'camelcase'
+import glob from 'fast-glob'
+import { type BuiltInParserName, format } from 'prettier'
+import chalk from 'chalk'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const dir = dirname(fileURLToPath(import.meta.url))
+const pathComponents = resolve(dir, './vue')
+const pathSvgs = resolve(dir, './svg')
+
+const getSvgFiles = async () => {
+  return glob('*.svg', { cwd: pathSvgs, absolute: true })
+}
+
+const getName = (file: string) => {
+  const filename = path.basename(file).replace('.svg', '')
+  const componentName = camelcase(filename, { pascalCase: true })
+  return {
+    filename,
+    componentName
+  }
+}
+
+const formatCode = (code: string, parser: BuiltInParserName = 'typescript') =>
+  format(code, {
+    parser,
+    semi: false,
+    singleQuote: true
+  })
+
+const transformToVueComponent = async (file: string) => {
+  const content = await readFile(file, 'utf-8')
+  const { filename, componentName } = getName(file)
+  const vue = await formatCode(
+    `
+<template>
+${content}
+</template>
+<script lang="ts">
+import type { DefineComponent } from 'vue'
+export default ({
+  name: "${componentName}",
+}) as DefineComponent
+</script>`,
+    'vue'
+  )
+  writeFile(path.resolve(pathComponents, `${filename}.vue`), vue, 'utf-8')
+}
+
+const generateEntry = async (files: string[]) => {
+  const code = await formatCode(
+    files
+      .map((file) => {
+        const { filename, componentName } = getName(file)
+        return `export { default as ${componentName} } from './vue/${filename}.vue'`
+      })
+      .join('\n')
+  )
+  await writeFile(path.resolve(dir, 'index.ts'), code, 'utf-8')
+}
+
+consola.info(chalk.blue('generating vue components'))
+await ensureDir(pathComponents)
+await emptyDir(pathComponents)
+const files = await getSvgFiles()
+
+consola.info(chalk.blue('generating vue files'))
+await Promise.all(files.map((file) => transformToVueComponent(file)))
+
+consola.info(chalk.blue('generating entry file'))
+await generateEntry(files)
