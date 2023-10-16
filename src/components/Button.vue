@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <button
-    class="peer-invalid:ml-3 peer space-x-6 rounded-full bg-indigo-600 text-white duration-150 hover:bg-indigo-500 active:bg-indigo-700"
+    class="rounded-full bg-indigo-600 text-white duration-150 hover:bg-indigo-500 active:bg-indigo-700"
     :class="sizeType[size]"
   >
     <slot />
