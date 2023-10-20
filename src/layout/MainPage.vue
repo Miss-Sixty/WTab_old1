@@ -8,13 +8,18 @@ defineOptions({
   name: 'MainPage'
 })
 
-const mode = useColorMode({
+//给 newColors 添加ts类型
+
+const newColors: any = {}
+for (let key in theme) {
+  newColors[key] = key
+}
+
+const mode: any = useColorMode({
   disableTransition: false,
   attribute: 'theme',
   storageKey: 'wtab-color-scheme',
-  modes: {
-    ...Object.keys(theme).map((key) => ({ [key]: key }))
-  }
+  modes: newColors
 })
 watchEffect(() => {
   useHead({
