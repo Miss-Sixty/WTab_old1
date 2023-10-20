@@ -4,7 +4,7 @@ import MainPage from '@/layout/MainPage.vue'
 </script>
 
 <template>
-  <div class="bg-primary-light h-screen w-screen overflow-hidden">
+  <div>
     <HeaderPage />
     <MainPage />
   </div>
