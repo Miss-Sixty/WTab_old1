@@ -14,7 +14,7 @@ const settingRef = ref()
   >
     <Button size="sm"> <Add class="h-5 w-5 fill-white" /> </Button>
     <Button size="sm">完成</Button>
-    <Button size="sm" @click="$emit('setting', settingRef)" ref="settingRef">
+    <Button size="sm" @click.stop="$emit('handleSettingIcon', settingRef)" ref="settingRef">
       <Settings class="h-5 w-5 fill-white" />
     </Button>
   </header>

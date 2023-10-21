@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computePosition, flip, shift, offset, type ReferenceElement } from '@floating-ui/dom'
-import { onClickOutside, unrefElement, type MaybeComputedElementRef } from '@vueuse/core'
+import { computePosition, flip, shift, offset } from '@floating-ui/dom'
+import { onClickOutside, unrefElement } from '@vueuse/core'
 defineOptions({
   name: 'ContextMenu'
 })
@@ -13,12 +13,27 @@ defineProps({
 })
 
 const options: any = {
-  settings: {
-    placement: 'bottom-end'
+  settingIcon: {
+    placement: 'bottom-end',
+    middleware: [
+      offset(6),
+      flip(),
+      shift(),
+      { fn: () => (styles.value.transformOrigin = '90% 0%') }
+    ],
+    transformOrigin: '90% 0%'
   },
   base: {
     placement: 'right-start',
-    middleware: [flip(), shift()]
+    middleware: [
+      flip(),
+      shift(),
+      {
+        fn: ({ placement }: any) =>
+          (styles.value.transformOrigin = placement === 'left-start' ? '90% 0%' : '0% 0%')
+      }
+    ],
+    transformOrigin: '0% 0%'
   }
 }
 const floatingRef = ref()
@@ -29,7 +44,9 @@ const show = async (type: string, domOrRect: any) => {
     domOrRect = getBoundingClientRect(domOrRect)
   }
   popperVisible.value = true
-  onContextmenu(domOrRect, options[type] || options.base)
+  const activeOptions = options[type] || options.base
+  // styles.value.transformOrigin = activeOptions.transformOrigin
+  onContextmenu(domOrRect, activeOptions)
 }
 
 // 处理 getBoundingClientRect 如果为dom则直接返回，如果为event则返回一个伪造的dom
@@ -70,14 +87,19 @@ onClickOutside(floatingRef, () => {
   popperVisible.value = false
 })
 
+const handleClick = (item: any) => {
+  popperVisible.value = false
+  item.onclick()
+}
+
 defineExpose({ show })
 </script>
 
 <template>
   <Teleport to="body">
     <Transition
-      enter-active-class="animate-zoom-in transition-none"
-      leave-active-class="animate-zoom-out"
+      enter-active-class="animate-zoom-in transition-none transform-gpu"
+      leave-active-class="animate-zoom-out transform-gpu"
     >
       <ul
         class="fixed transition-[left,top] bg-white p-2 min-w-[150px] shadow-sm rounded-md translate-x-0 translate-y-0"
@@ -87,7 +109,10 @@ defineExpose({ show })
       >
         <template v-for="(item, i) in menuList" :key="i">
           <li class="my-1 border-t" v-if="item.divided" />
-          <li class="rounded py-1 px-2.5 hover:bg-slate-400 cursor-pointer" @click="item.onclick">
+          <li
+            class="rounded transition-[background-color] py-1 px-2.5 hover:bg-slate-400 cursor-pointer"
+            @click="handleClick(item)"
+          >
             {{ item.text }}
           </li>
         </template>

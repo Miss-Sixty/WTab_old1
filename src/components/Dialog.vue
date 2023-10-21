@@ -1,0 +1,83 @@
+<script setup lang="ts">
+const emit = defineEmits(['update:modelValue', 'closed'])
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
+  title: {
+    type: String,
+    default: '标题'
+  },
+  width: {
+    type: Number,
+    default: 1024
+  },
+  header: {
+    type: Boolean,
+    default: true
+  },
+  className: {
+    type: String,
+    default: ''
+  }
+})
+
+watch(
+  () => props.modelValue,
+  (bl) => {
+    if (bl) return
+    setTimeout(() => emit('closed'), 200)
+  }
+)
+</script>
+
+<template>
+  <Teleport to="body">
+    <Transition
+      enter-from-class="opacity-0"
+      enter-active-class="transition-[opacity] duration-200"
+      enter-to-class="opacity-100"
+      leave-from-class="opacity-100"
+      leave-active-class="transition-[opacity] duration-200"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-show="modelValue"
+        class="fixed left-0 top-0 z-[999] h-full w-full backdrop-blur"
+        @contextmenu.prevent
+      >
+        <transition
+          enter-active-class="animate-zoom-in  transform-gpu"
+          leave-active-class="animate-zoom-out transform-gpu"
+        >
+          <div
+            v-show="modelValue"
+            :style="{ width: `${width}px` }"
+            class="absolute inset-0 m-auto flex h-full w-full max-w-full flex-col overflow-hidden bg-slate-600 shadow-lg transition-[background-color] tablet:h-[600px] tablet:max-w-[calc(100vw-40px)] tablet:rounded-lg"
+          >
+            <div
+              v-if="header"
+              class="relative flex h-12 shrink-0 items-center justify-between border-b border-solid border-slate-200 pl-5 pr-1.5"
+            >
+              <span class="text-lg">{{ title }}</span>
+              <button
+                @click="$emit('update:modelValue', false)"
+                class="top-1 h-9 w-12 cursor-pointer rounded-lg bg-red-500 transition-[background-color] hover:bg-red-600"
+              >
+                x
+              </button>
+            </div>
+
+            <div
+              class="h-full flex-1 overflow-y-auto px-3 py-4 tablet:px-8 tablet:py-5"
+              data-simplebar
+            >
+              <slot></slot>
+            </div>
+          </div>
+        </transition>
+      </div>
+    </Transition>
+  </Teleport>
+</template>

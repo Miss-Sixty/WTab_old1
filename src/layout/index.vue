@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import HeaderPage from '@/layout/HeaderPage.vue'
 import MainPage from '@/layout/MainPage.vue'
+import ContextMenu from '@/components/ContextMenu.vue'
+import Dialog from '@/components/Dialog.vue'
 
 const contextMenuRef = ref()
-const handleSettingsIcon = (ref: Ref) => {
-  contextMenuRef.value.show('settingsIcon', ref)
+const handleSettingIcon = (ref: Ref) => {
+  contextMenuRef.value.show('settingIcon', ref)
 }
 
 const handleHomeContextmenu = (e: Event) => {
@@ -17,6 +19,7 @@ const contextmenuData = [
     divided: false,
     onclick: () => {
       console.log('设置')
+      dialogVisible.value = true
     }
   },
   {
@@ -27,12 +30,15 @@ const contextmenuData = [
     }
   }
 ]
+
+const dialogVisible = ref(false)
 </script>
 
 <template>
   <div class="h-full relative" @contextmenu.prevent="handleHomeContextmenu">
-    <HeaderPage @setting="handleSettingsIcon" />
+    <HeaderPage @handleSettingIcon="handleSettingIcon" />
     <MainPage />
     <ContextMenu :menuList="contextmenuData" ref="contextMenuRef" />
+    <Dialog v-model="dialogVisible" title="设置" :width="600" />
   </div>
 </template>

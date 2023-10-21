@@ -41,6 +41,9 @@ export default {
       animation: {
         'zoom-in': 'pulseIn 0.2s',
         'zoom-out': 'pulseOut 0.2s'
+      },
+      screens: {
+        tablet: '600px'
       }
     }
   },
