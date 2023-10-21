@@ -16,6 +16,31 @@ export default {
           default: withOpacityValue('--color-primary'),
           dark: withOpacityValue('--color-primary-dark')
         }
+      },
+      keyframes: {
+        pulseIn: {
+          from: {
+            transform: 'scale(0.3)',
+            opacity: 0
+          },
+          '50%': {
+            transform: 'scale(1.03)',
+            opacity: 1
+          },
+          to: {
+            transform: 'scale(1)'
+          }
+        },
+        pulseOut: {
+          to: {
+            transform: ' scale(0.3)',
+            opacity: 0
+          }
+        }
+      },
+      animation: {
+        'zoom-in': 'pulseIn 0.2s',
+        'zoom-out': 'pulseOut 0.2s'
       }
     }
   },

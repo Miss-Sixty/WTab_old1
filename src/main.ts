@@ -6,7 +6,7 @@ import App from './App.vue'
 import { createHead } from 'unhead'
 
 import Button from '@/components/Button.vue'
-import ContextMenuVue from '@/components/ContextMenu/index.vue'
+import ContextMenuVue from '@/components/ContextMenu.vue'
 
 createHead()
 const app = createApp(App)

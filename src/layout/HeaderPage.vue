@@ -4,6 +4,8 @@ import { Add, Settings } from '@/icons'
 defineOptions({
   name: 'HeaderPage'
 })
+
+const settingRef = ref()
 </script>
 
 <template>
@@ -12,6 +14,8 @@ defineOptions({
   >
     <Button size="sm"> <Add class="h-5 w-5 fill-white" /> </Button>
     <Button size="sm">完成</Button>
-    <Button size="sm"> <Settings class="h-5 w-5 fill-white" /> </Button>
+    <Button size="sm" @click="$emit('setting', settingRef)" ref="settingRef">
+      <Settings class="h-5 w-5 fill-white" />
+    </Button>
   </header>
 </template>

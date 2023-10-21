@@ -3,25 +3,12 @@ import HeaderPage from '@/layout/HeaderPage.vue'
 import MainPage from '@/layout/MainPage.vue'
 
 const contextMenuRef = ref()
-const handleContextmenu = (ev: MouseEvent) => {
-  let clientRect = {
-    width: 0,
-    height: 0,
-    x: ev.clientX,
-    y: ev.clientY,
-    top: ev.clientY,
-    left: ev.clientX,
-    right: ev.clientX,
-    bottom: ev.clientY
-  }
+const handleSettingsIcon = (ref: Ref) => {
+  contextMenuRef.value.show('settingsIcon', ref)
+}
 
-  let reference = {
-    getBoundingClientRect() {
-      return clientRect
-    }
-  }
-
-  contextMenuRef.value.show('desktop', reference)
+const handleHomeContextmenu = (e: Event) => {
+  contextMenuRef.value.show('homeContextmenu', e)
 }
 
 const contextmenuData = [
@@ -43,8 +30,8 @@ const contextmenuData = [
 </script>
 
 <template>
-  <div class="h-full" @contextmenu.prevent="handleContextmenu">
-    <HeaderPage />
+  <div class="h-full relative" @contextmenu.prevent="handleHomeContextmenu">
+    <HeaderPage @setting="handleSettingsIcon" />
     <MainPage />
     <ContextMenu :menuList="contextmenuData" ref="contextMenuRef" />
   </div>
