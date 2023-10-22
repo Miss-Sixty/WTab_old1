@@ -17,6 +17,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.5.3",
     "@tabler/icons-vue": "^2.39.0",
+    "@vercel/analytics": "^1.1.1",
     "@vueuse/core": "^10.5.0",
     "dayjs": "^1.11.10",
     "pinia": "^2.1.7",

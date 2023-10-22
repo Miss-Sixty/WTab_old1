@@ -11,6 +11,9 @@ dependencies:
   '@tabler/icons-vue':
     specifier: ^2.39.0
     version: 2.39.0(vue@3.3.6)
+  '@vercel/analytics':
+    specifier: ^1.1.1
+    version: 1.1.1
   '@vueuse/core':
     specifier: ^10.5.0
     version: 10.5.0(vue@3.3.6)
@@ -739,6 +742,12 @@ packages:
     resolution: {integrity: sha512-YUNA2UxAuDPnDps41BQ8aEIY5hdyvruSB1Vs3AALhRo07MxMivSq5DjNKfYr/JvRN6593RtfI1NHnP9x5M57xA==}
     dependencies:
       '@unhead/schema': 1.7.4
+    dev: false
+
+  /@vercel/analytics@1.1.1:
+    resolution: {integrity: sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==}
+    dependencies:
+      server-only: 0.0.1
     dev: false
 
   /@vitejs/plugin-vue@4.4.0(vite@4.5.0)(vue@3.3.6):
@@ -2518,6 +2527,10 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: true
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}

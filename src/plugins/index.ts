@@ -10,3 +10,7 @@ import 'simplebar/dist/simplebar.min.css'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
+
+
+import { inject } from '@vercel/analytics';
+inject();
