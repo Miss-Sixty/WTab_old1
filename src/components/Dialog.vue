@@ -66,7 +66,7 @@ watch(
                 @click="$emit('update:modelValue', false)"
                 class="top-1 flex h-9 w-11 cursor-pointer items-center justify-center rounded-lg bg-primary-medium transition-[background-color] hover:bg-primary-light"
               >
-                <IconX :size="20" />
+                <IconX :size="18" />
               </button>
             </div>
 

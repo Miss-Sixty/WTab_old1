@@ -8,8 +8,8 @@ const { theme } = storeToRefs(appStore)
 
 // 将 themeScss 中 light、dark 和其他色分开
 const colors = computed(() => {
-  let system = { auto: 'auto' }
-  let other = {}
+  let system: any = { auto: 'auto' }
+  let other: any = {}
   for (const key in themeScss) {
     if (key === 'light' || key === 'dark') {
       system[key] = themeScss[key]
@@ -20,6 +20,9 @@ const colors = computed(() => {
   return {
     system,
     other
+  } as {
+    system: { [key: string]: string }
+    other: { [key: string]: string }
   }
 })
 </script>
@@ -32,12 +35,12 @@ const colors = computed(() => {
         <div class="flex justify-end">
           <div class="mr-4 flex gap-1">
             <div
-              title="跟随电脑"
               class="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border"
               @click="theme = key"
               v-for="(color, key) in colors.system"
               :key="key"
             >
+              11---{{ key }}
               <IconDeviceDesktop v-if="key === 'auto'" :size="18" />
               <IconSunLow v-if="key === 'light'" :size="18" />
               <IconMoonStars v-if="key === 'dark'" :size="18" />
@@ -47,7 +50,6 @@ const colors = computed(() => {
             <div
               v-for="(color, key) in colors.other"
               :key="key"
-              :title="key"
               class="h-7 w-7 cursor-pointer rounded-full"
               :style="{ 'background-color': color }"
               @click="theme = key"
