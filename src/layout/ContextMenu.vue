@@ -32,11 +32,12 @@ const options: any = {
 }
 const floatingRef = ref()
 const popperVisible = ref(false)
-
+const dialogType = ref('')
 const show = async (type: string, domOrRect: any) => {
   if (type === 'homeContextmenu') {
     domOrRect = getBoundingClientRect(domOrRect)
   }
+  dialogType.value = type
   popperVisible.value = true
   const activeOptions = options[type] || options.base
   onContextmenu(domOrRect, activeOptions)
@@ -90,19 +91,25 @@ const contextmenuData = [
   {
     text: '常规设置',
     divided: false,
+    visibles: ['settingIcon', 'homeContextmenu'],
     onclick: () => {
       console.log('常规设置')
       baseSettingDialogVisible.value = true
     }
   },
   {
-    text: '设置22',
+    text: '关于',
     divided: true,
+    visibles: ['settingIcon'],
     onclick: () => {
       console.log('设置22')
     }
   }
 ]
+
+const showMenu = computed(() =>
+  contextmenuData.filter((item) => item.visibles.includes(dialogType.value))
+)
 
 defineExpose({ show })
 </script>
@@ -114,15 +121,15 @@ defineExpose({ show })
       leave-active-class="animate-zoom-out transform-gpu"
     >
       <ul
-        class="fixed min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-white p-2 shadow-sm transition-[left,top]"
+        class="fixed min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-primary-medium p-2 shadow-sm transition-[left,top]"
         :style="styles"
         v-show="popperVisible"
         ref="floatingRef"
       >
-        <template v-for="(item, i) in contextmenuData" :key="i">
-          <li class="my-1 border-t" v-if="item.divided" />
+        <template v-for="(item, i) in showMenu" :key="i">
+          <li class="my-1.5 border-t border-primary-light" v-if="item.divided" />
           <li
-            class="cursor-pointer rounded px-2.5 py-1 transition-[background-color] hover:bg-slate-400"
+            class="cursor-pointer rounded px-2.5 py-1.5 text-sm transition-[background-color] hover:bg-primary-light"
             @click="handleClick(item)"
           >
             {{ item.text }}
