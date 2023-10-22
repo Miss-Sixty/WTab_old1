@@ -55,18 +55,18 @@ watch(
           <div
             v-show="modelValue"
             :style="{ width: `${width}px` }"
-            class="absolute inset-0 m-auto flex h-full w-full max-w-full flex-col overflow-hidden bg-slate-600 shadow-lg transition-[background-color] tablet:h-[600px] tablet:max-w-[calc(100vw-40px)] tablet:rounded-lg"
+            class="absolute inset-0 m-auto flex h-full w-full max-w-full flex-col overflow-hidden bg-primary-medium shadow-lg transition-[background-color] tablet:h-[600px] tablet:max-w-[calc(100vw-40px)] tablet:rounded-lg"
           >
             <div
               v-if="header"
-              class="relative flex h-12 shrink-0 items-center justify-between border-b border-solid border-slate-200 pl-5 pr-1.5"
+              class="relative flex h-12 shrink-0 items-center justify-between border-b border-solid border-primary-light pl-5 pr-1.5"
             >
               <span class="text-lg">{{ title }}</span>
               <button
                 @click="$emit('update:modelValue', false)"
-                class="top-1 flex h-9 w-11 cursor-pointer items-center justify-center rounded-lg bg-red-500 transition-[background-color] hover:bg-red-600"
+                class="top-1 flex h-9 w-11 cursor-pointer items-center justify-center rounded-lg bg-primary-medium transition-[background-color] hover:bg-primary-light"
               >
-                <IconX />
+                <IconX :size="20" />
               </button>
             </div>
 
