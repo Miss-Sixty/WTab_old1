@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { IconX } from '@tabler/icons-vue'
 const emit = defineEmits(['update:modelValue', 'closed'])
 const props = defineProps({
   modelValue: {
@@ -63,9 +64,9 @@ watch(
               <span class="text-lg">{{ title }}</span>
               <button
                 @click="$emit('update:modelValue', false)"
-                class="top-1 h-9 w-12 cursor-pointer rounded-lg bg-red-500 transition-[background-color] hover:bg-red-600"
+                class="top-1 flex h-9 w-11 cursor-pointer items-center justify-center rounded-lg bg-red-500 transition-[background-color] hover:bg-red-600"
               >
-                x
+                <IconX />
               </button>
             </div>
 
