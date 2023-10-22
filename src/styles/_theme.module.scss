@@ -1,7 +1,6 @@
 @import 'variables';
 
 :root {
-  @include spread-theme-map(theme-default-map());
   @include spread-theme-map(theme-primary-map());
 }
 

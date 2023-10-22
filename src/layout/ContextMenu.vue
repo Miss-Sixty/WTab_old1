@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 import { onClickOutside, unrefElement } from '@vueuse/core'
+import BaseSettings from '@/layout/settings/BaseSettings.vue'
 defineOptions({
   name: 'ContextMenu'
-})
-
-defineProps({
-  menuList: {
-    type: Array,
-    default: () => []
-  } as any
 })
 
 const options: any = {
@@ -45,7 +39,6 @@ const show = async (type: string, domOrRect: any) => {
   }
   popperVisible.value = true
   const activeOptions = options[type] || options.base
-  // styles.value.transformOrigin = activeOptions.transformOrigin
   onContextmenu(domOrRect, activeOptions)
 }
 
@@ -92,6 +85,25 @@ const handleClick = (item: any) => {
   item.onclick()
 }
 
+const baseSettingDialogVisible = ref(false)
+const contextmenuData = [
+  {
+    text: '常规设置',
+    divided: false,
+    onclick: () => {
+      console.log('常规设置')
+      baseSettingDialogVisible.value = true
+    }
+  },
+  {
+    text: '设置22',
+    divided: true,
+    onclick: () => {
+      console.log('设置22')
+    }
+  }
+]
+
 defineExpose({ show })
 </script>
 
@@ -102,15 +114,15 @@ defineExpose({ show })
       leave-active-class="animate-zoom-out transform-gpu"
     >
       <ul
-        class="fixed transition-[left,top] bg-white p-2 min-w-[150px] shadow-sm rounded-md translate-x-0 translate-y-0"
+        class="fixed min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-white p-2 shadow-sm transition-[left,top]"
         :style="styles"
         v-show="popperVisible"
         ref="floatingRef"
       >
-        <template v-for="(item, i) in menuList" :key="i">
+        <template v-for="(item, i) in contextmenuData" :key="i">
           <li class="my-1 border-t" v-if="item.divided" />
           <li
-            class="rounded transition-[background-color] py-1 px-2.5 hover:bg-slate-400 cursor-pointer"
+            class="cursor-pointer rounded px-2.5 py-1 transition-[background-color] hover:bg-slate-400"
             @click="handleClick(item)"
           >
             {{ item.text }}
@@ -119,4 +131,6 @@ defineExpose({ show })
       </ul>
     </Transition>
   </Teleport>
+
+  <BaseSettings v-model="baseSettingDialogVisible" />
 </template>

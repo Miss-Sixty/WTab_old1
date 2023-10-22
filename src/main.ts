@@ -9,10 +9,12 @@ import App from './App.vue'
 import { createHead } from 'unhead'
 
 import Button from '@/components/Button.vue'
+import Dialog from '@/components/Dialog.vue'
 
 createHead()
 const app = createApp(App)
 app.component('Button', Button)
+app.component('Dialog', Dialog)
 
 app.use(createPinia())
 

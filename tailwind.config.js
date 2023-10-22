@@ -7,8 +7,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        black: withOpacityValue('--color-black'),
-        white: withOpacityValue('--color-white'),
         primary: {
           extralight: withOpacityValue('--color-primary-extralight'),
           light: withOpacityValue('--color-primary-light'),

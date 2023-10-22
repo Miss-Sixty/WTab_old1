@@ -17,10 +17,3 @@
     color-primary-extralight: getColorValue(mix($primary-color, white, 15%))
   );
 }
-
-@function theme-default-map() {
-  @return (
-    color-white: getColorValue(white),
-    color-black: getColorValue(black),
-  );
-}
