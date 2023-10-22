@@ -40,7 +40,6 @@ const colors = computed(() => {
               v-for="(color, key) in colors.system"
               :key="key"
             >
-              11---{{ key }}
               <IconDeviceDesktop v-if="key === 'auto'" :size="18" />
               <IconSunLow v-if="key === 'light'" :size="18" />
               <IconMoonStars v-if="key === 'dark'" :size="18" />
