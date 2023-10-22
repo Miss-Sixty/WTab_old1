@@ -1,7 +1,8 @@
 {
   "name": "wtab_next",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "description": "展示各种信息的小组件工具",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +18,7 @@
     "@floating-ui/dom": "^1.5.3",
     "@tabler/icons-vue": "^2.39.0",
     "@vueuse/core": "^10.5.0",
+    "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
     "simplebar": "^6.2.5",
     "unhead": "^1.7.4",

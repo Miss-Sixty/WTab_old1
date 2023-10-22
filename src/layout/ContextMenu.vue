@@ -2,6 +2,7 @@
 import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 import { onClickOutside, unrefElement } from '@vueuse/core'
 import BaseSettings from '@/layout/settings/BaseSettings.vue'
+import About from '@/layout/settings/About.vue'
 defineOptions({
   name: 'ContextMenu'
 })
@@ -87,23 +88,19 @@ const handleClick = (item: any) => {
 }
 
 const baseSettingDialogVisible = ref(false)
+const aboutDialogVisible = ref(false)
 const contextmenuData = [
   {
     text: '常规设置',
     divided: false,
     visibles: ['settingIcon', 'homeContextmenu'],
-    onclick: () => {
-      console.log('常规设置')
-      baseSettingDialogVisible.value = true
-    }
+    onclick: () => (baseSettingDialogVisible.value = true)
   },
   {
     text: '关于',
     divided: true,
     visibles: ['settingIcon'],
-    onclick: () => {
-      console.log('设置22')
-    }
+    onclick: () => (aboutDialogVisible.value = true)
   }
 ]
 
@@ -140,4 +137,5 @@ defineExpose({ show })
   </Teleport>
 
   <BaseSettings v-model="baseSettingDialogVisible" />
+  <About v-model="aboutDialogVisible" />
 </template>

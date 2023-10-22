@@ -3,6 +3,9 @@ import Card from '@/layout/Card.vue'
 import { useAppStore } from '@/stores/app'
 import themeScss from '@/styles/_theme.module.scss'
 import { IconDeviceDesktop, IconSunLow, IconMoonStars } from '@tabler/icons-vue'
+defineOptions({
+  name: 'BaseSettings'
+})
 const appStore = useAppStore()
 const { theme } = storeToRefs(appStore)
 
@@ -28,7 +31,7 @@ const colors = computed(() => {
 </script>
 
 <template>
-  <Dialog title="常规设置" :width="600">
+  <Dialog title="常规设置">
     <Card>
       <div class="flex items-center justify-between">
         <div>主题</div>

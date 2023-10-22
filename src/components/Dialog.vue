@@ -12,7 +12,7 @@ const props = defineProps({
   },
   width: {
     type: Number,
-    default: 1024
+    default: 600
   },
   header: {
     type: Boolean,
