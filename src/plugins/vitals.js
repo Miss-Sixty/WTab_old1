@@ -9,14 +9,14 @@ function getConnectionSpeed() {
 }
 
 export function sendToVercelAnalytics(metric) {
-  const analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID;
-  console.log(111111,analyticsId);
-  if (!analyticsId) {
-    return;
-  }
+  // const analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID;
+  // console.log(111111,analyticsId);
+  // if (!analyticsId) {
+  //   return;
+  // }
 
   const body = {
-    dsn: analyticsId,
+    dsn:'prj_qnz7YEA6VOJlNChQ7DGThDc8koPT' ,
     id: metric.id,
     page: window.location.pathname,
     href: window.location.href,
