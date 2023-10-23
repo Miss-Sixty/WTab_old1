@@ -27,7 +27,7 @@ export default defineConfig({
   server: {
     host: true // 监听所有地址
   },
-  define: {
-    'process.env': JSON.stringify(__APP_INFO__)
-  }
+  // define: {
+  //   'process.env': JSON.stringify(__APP_INFO__)
+  // }
 })
