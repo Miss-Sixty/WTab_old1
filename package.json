@@ -15,6 +15,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@astrojs/vercel": "^5.0.2",
     "@floating-ui/dom": "^1.5.3",
     "@tabler/icons-vue": "^2.39.0",
     "@vercel/analytics": "^1.1.1",
@@ -24,7 +25,8 @@
     "pinia": "^2.1.7",
     "simplebar": "^6.2.5",
     "unhead": "^1.7.4",
-    "vue": "^3.3.6"
+    "vue": "^3.3.6",
+    "web-vitals": "^3.5.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.5.1",

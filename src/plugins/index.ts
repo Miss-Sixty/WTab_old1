@@ -13,3 +13,7 @@ dayjs.locale('zh-cn')
 
 import { inject } from '@vercel/analytics'
 inject()
+
+import reportWebVitals from './reportWebVitals.js';
+import { sendToVercelAnalytics } from './vitals.js';
+reportWebVitals(sendToVercelAnalytics);
