@@ -16,7 +16,7 @@ export function sendToVercelAnalytics(metric) {
   // }
 
   const body = {
-    dsn:'prj_qnz7YEA6VOJlNChQ7DGThDc8koPT' ,
+    dsn:'w-stl8pcv34-miss-sixtys-projects.vercel.app' ,
     id: metric.id,
     page: window.location.pathname,
     href: window.location.href,
