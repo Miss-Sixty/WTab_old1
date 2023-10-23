@@ -9,14 +9,14 @@ function getConnectionSpeed() {
 }
 
 export function sendToVercelAnalytics(metric) {
-  // const analyticsId = process.env.REACT_APP_VERCEL_ANALYTICS_ID;
-  // console.log(111111,analyticsId);
-  // if (!analyticsId) {
-  //   return;
-  // }
+  const analyticsId = process.env.VERCEL_ANALYTICS_ID;
+  console.log(111111,analyticsId);
+  if (!analyticsId) {
+    return;
+  }
 
   const body = {
-    dsn:'w-stl8pcv34-miss-sixtys-projects.vercel.app' ,
+    dsn: analyticsId,
     id: metric.id,
     page: window.location.pathname,
     href: window.location.href,

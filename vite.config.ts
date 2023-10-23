@@ -8,8 +8,7 @@ import dayjs from 'dayjs'
 const { name, version, description } = pkg
 const __APP_INFO__ = {
   pkg: { name, version, description },
-  lastBuildTime: dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'),
-  VERCEL_ANALYTICS_ID:process.env.VERCEL_ANALYTICS_ID
+  lastBuildTime: dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')
 }
 
 // https://vitejs.dev/config/
@@ -29,6 +28,9 @@ export default defineConfig({
     host: true // 监听所有地址
   },
   define: {
-    'process.env': JSON.stringify(__APP_INFO__)
+    'process.env': JSON.stringify({
+      ...__APP_INFO__,
+      VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID
+    })
   }
 })
