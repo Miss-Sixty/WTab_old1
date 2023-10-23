@@ -7,7 +7,7 @@
     "./auto-imports.d.ts",
     "public/theme.js",
     "vite.config.ts",
-    "types/*.d.ts",
+    "types/*.d.ts"
   ],
   "exclude": ["dist", "**/*.js", "node_modules"],
   "compilerOptions": {
