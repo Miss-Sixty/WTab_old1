@@ -71,7 +71,7 @@ watch(
             </div>
 
             <div class="h-full flex-1 overflow-y-auto" data-simplebar>
-              <div class="px-3 py-4 tablet:px-8 tablet:py-5">
+              <div class="h-full px-3 py-4 tablet:px-8 tablet:py-5">
                 <slot></slot>
               </div>
             </div>
