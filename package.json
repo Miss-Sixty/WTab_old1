@@ -24,6 +24,7 @@
     "highlight.run": "^8.0.0",
     "pinia": "^2.1.7",
     "simplebar": "^6.2.5",
+    "swiper": "^10.3.1",
     "unhead": "^1.7.4",
     "vue": "^3.3.6",
     "web-vitals": "^3.5.0"
