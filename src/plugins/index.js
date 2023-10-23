@@ -9,11 +9,15 @@ import 'simplebar/dist/simplebar.min.css'
 // dayjs
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+dayjs.extend(utc)
+dayjs.extend(timezone)
 dayjs.locale('zh-cn')
 
 import { inject } from '@vercel/analytics'
 inject()
 
-import reportWebVitals from './reportWebVitals.js';
-import { sendToVercelAnalytics } from './vitals.js';
-reportWebVitals(sendToVercelAnalytics);
+import reportWebVitals from './reportWebVitals.js'
+import { sendToVercelAnalytics } from './vitals.js'
+reportWebVitals(sendToVercelAnalytics)
