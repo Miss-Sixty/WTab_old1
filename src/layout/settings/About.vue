@@ -40,9 +40,3 @@ const { version, name, description } = pkg
     </div>
   </Dialog>
 </template>
-
-<style>
-.simplebar-content {
-  height: 100%;
-}
-</style>
