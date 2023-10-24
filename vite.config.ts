@@ -5,14 +5,11 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import pkg from './package.json'
 import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import timezone from 'dayjs/plugin/timezone'
-dayjs.extend(utc)
-dayjs.extend(timezone)
+
 const { name, version, description } = pkg
 const __APP_INFO__ = {
   pkg: { name, version, description },
-  lastBuildTime: dayjs.tz(dayjs(), 'Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss')
+  lastBuildTime: dayjs().tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss')
 }
 
 // https://vitejs.dev/config/
@@ -40,8 +37,8 @@ export default defineConfig({
   },
   define: {
     'process.env': JSON.stringify({
-      ...__APP_INFO__,
-      VERCEL_ANALYTICS_ID: process.env.VERCEL_ANALYTICS_ID
+      ...process.env,
+      ...__APP_INFO__
     })
   }
 })
