@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+// 滚动条的滑块部分
+::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--color-primary), 1);
+  border-radius: 9999px;
+}
+
+// 滚动条滑块的hover样式
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--color-primary), 0.8);
+}
+
+// 滚动条滑块的激活样式
+::-webkit-scrollbar-thumb:active {
+  background: rgba(var(--color-primary), 1);
+}
+
+// 滚动条的外层轨道
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+// 选中文字的背景色
+::selection {
+  background-color: rgba(var(--color-primary), 1);
+  color: rgba(var(--color-primary-extralight), 1);
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

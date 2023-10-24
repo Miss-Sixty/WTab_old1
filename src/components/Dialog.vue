@@ -70,10 +70,8 @@ watch(
               </button>
             </div>
 
-            <div class="h-full flex-1 overflow-y-auto" data-simplebar>
-              <div class="h-full px-3 py-4 tablet:px-8 tablet:py-5">
-                <slot></slot>
-              </div>
+            <div class="flex-1 overflow-y-auto px-3 py-4 tablet:px-8 tablet:py-5">
+              <slot></slot>
             </div>
           </div>
         </transition>
