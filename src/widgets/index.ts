@@ -5,6 +5,9 @@ export default (app: any) => {
     const component = componentsContext[path]?.default
     app.component(component.name, component)
   }
+
+  console.log(111, componentsContext);
+  
 }
 
 export const initWidgetJson = async () => {

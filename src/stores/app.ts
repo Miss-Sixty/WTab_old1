@@ -9,7 +9,7 @@ for (let key in themeScss) {
   newColors[key] = key
 }
 
-export const useAppStore = defineStore('storeApp', () => {
+export default defineStore('storeApp', () => {
   const baseSetting = ref(false)
 
   // 设置主题

@@ -1,14 +1,12 @@
 <script setup lang="ts">
-// import function to register Swiper custom elements
+import Widget from '@/widgets/index.vue'
 import { register } from 'swiper/element/bundle'
-// register Swiper custom elements
 register()
-import { initWidgetJson } from '@/widget/index'
+import { initWidgetJson } from '@/widgets/index'
 
 const widgetList = shallowRef()
 const init = async () => {
   const res = await initWidgetJson()
-  console.log(23, res)
   widgetList.value = res
 }
 
@@ -31,14 +29,11 @@ init()
           class="w-full flex-1"
         >
           <swiper-slide
-            v-for="(widget, i) in list.widget"
-            :key="i"
+            v-for="(data, j) in list.widget"
+            :key="j"
             class="flex items-center justify-center"
           >
-            {{ widget }}
-            <!-- <div :style="getItemStyle(widget)">
-                <Widget type="add" :widget="widget" />
-              </div> -->
+            <Widget type="add" :widget="data" :component="list.key" />
           </swiper-slide>
           <div class="swiper-scrollbar"></div>
         </swiper-container>
@@ -51,6 +46,7 @@ init()
     </div>
   </Dialog>
 </template>
+
 <style scoped lang="scss">
 swiper-container::part(bullet-active) {
   background-color: rgb(var(--color-primary));

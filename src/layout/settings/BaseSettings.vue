@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Card from '@/layout/Card.vue'
-import { useAppStore } from '@/stores/app'
+import useAppStore from '@/stores/app'
 import themeScss from '@/styles/_theme.module.scss'
 import { IconDeviceDesktop, IconSunLow, IconMoonStars } from '@tabler/icons-vue'
 defineOptions({
