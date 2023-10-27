@@ -21,12 +21,34 @@ const props = defineProps({
   }
 })
 
-const style = computed(() => {
+const wh = computed(() => {
   const { widgetSize } = props.widget
-  const [w, h] = widgetSize.split(':')
+  return widgetSize.split(':')
+})
+
+const widgetWH = computed(() => {
+  const [w, h] = wh.value
   return {
     width: `${w * baseSize.value + (w - 1) * baseMargin.value}px`,
     height: `${h * baseSize.value + (h - 1) * baseMargin.value}px`
+  }
+})
+
+const scale = computed(() => {
+  const [w, h] = wh.value
+  let scale = 1
+  if (h > 2 || w > 4) scale = 0.65
+  return {
+    transform: `scale(${scale})`
+  }
+})
+
+const iconScale = computed(() => {
+  const [w, h] = wh.value
+  let scale = 1
+  if (h > 2 || w > 4) scale = 1.5
+  return {
+    transform: `translate(-25%, -25%) scale(${scale})`
   }
 })
 
@@ -35,21 +57,29 @@ const handleAdd = () => {}
 const handleDel = () => {}
 </script>
 <template>
-  <div class="relative">
+  <div class="relative" :style="{ ...widgetWH, ...scale }">
     <template v-if="type">
       <IconPlus
         v-if="type === 'add'"
         :size="22"
-        class="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 scale-100 cursor-pointer rounded-full bg-primary-medium p-1 transition hover:bg-primary-default"
+        class="absolute left-0 top-0 scale-100 cursor-pointer rounded-full bg-primary-medium p-1 transition hover:bg-primary-default"
         @click="handleAdd"
+        :style="iconScale"
       />
       <IconMinus
         v-if="type === 'del'"
         :size="22"
-        class="absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 scale-100 cursor-pointer rounded-full bg-primary-medium p-1 transition hover:bg-primary-default"
+        class="absolute left-0 top-0 scale-100 cursor-pointer rounded-full bg-primary-medium p-1 transition hover:bg-primary-default"
         @click="handleDel"
+        :style="iconScale"
       />
     </template>
-    <component class="rounded-lg bg-white" :style="style" :is="component" :type="type" />
+    <component
+      class="rounded-lg bg-white"
+      :style="widgetWH"
+      :is="component"
+      :type="type"
+      :widget="widget"
+    />
   </div>
 </template>

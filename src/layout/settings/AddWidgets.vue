@@ -8,6 +8,7 @@ const widgetList = shallowRef()
 const init = async () => {
   const res = await initWidgetJson()
   widgetList.value = res
+  console.log(11, widgetList.value)
 }
 
 init()
@@ -23,8 +24,7 @@ init()
         <swiper-container
           :loop="true"
           :pagination="{
-            clickable: true,
-            dynamicBullets: true
+            clickable: true
           }"
           class="w-full flex-1"
         >
@@ -35,7 +35,6 @@ init()
           >
             <Widget type="add" :widget="data" :component="list.key" />
           </swiper-slide>
-          <div class="swiper-scrollbar"></div>
         </swiper-container>
 
         <div class="footer h-24 p-4 leading-none">

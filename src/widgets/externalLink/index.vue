@@ -2,6 +2,18 @@
 defineOptions({
   name: 'ExternalLink'
 })
+
+const props = defineProps({
+  widget: {
+    type: Object,
+    default: () => ({})
+  },
+  type: {
+    type: String,
+    default: ''
+  }
+})
+
 </script>
 
-<template><div>22</div></template>
+<template><div>{{widget}}</div></template>

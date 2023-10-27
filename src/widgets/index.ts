@@ -5,9 +5,6 @@ export default (app: any) => {
     const component = componentsContext[path]?.default
     app.component(component.name, component)
   }
-
-  console.log(111, componentsContext);
-  
 }
 
 export const initWidgetJson = async () => {
@@ -18,5 +15,7 @@ export const initWidgetJson = async () => {
     widgetJson.push(widgetJsonModule.default)
   }
 
+  console.log('1212',widgetJson);
+  
   return widgetJson
 }

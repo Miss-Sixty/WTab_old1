@@ -21,7 +21,7 @@ const { version, name, description } = pkg
 </script>
 
 <template>
-  <Dialog title="关于">
+  <Dialog>
     <div class="relative flex h-full flex-col items-center antialiased">
       <img class="mb-3 mt-14 w-28" :src="MiaoMiao" />
 

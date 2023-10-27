@@ -8,7 +8,7 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: '标题'
+    default: ''
   },
   width: {
     type: Number,
@@ -59,7 +59,7 @@ watch(
           >
             <div
               v-if="header"
-              class="relative flex h-12 shrink-0 items-center justify-between border-b border-solid border-primary-light pl-5 pr-1.5"
+              class="relative flex h-12 shrink-0 items-center justify-between pl-5 pr-1.5"
             >
               <span class="text-lg">{{ title }}</span>
               <button
@@ -69,9 +69,10 @@ watch(
                 <IconX :size="18" />
               </button>
             </div>
-
-            <div class="flex-1 overflow-y-auto px-3 py-4 tablet:px-8 tablet:py-5">
-              <slot></slot>
+            <div class="flex-1 overflow-hidden p-1">
+              <div class="h-full overflow-y-auto px-3 pb-4 pt-1 tablet:px-5">
+                <slot></slot>
+              </div>
             </div>
           </div>
         </transition>
