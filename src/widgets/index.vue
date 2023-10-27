@@ -2,11 +2,11 @@
 import useLayoutStore from '@/stores/layout'
 import { IconPlus, IconMinus } from '@tabler/icons-vue'
 const layoutStore = useLayoutStore()
-const { baseMargin, baseSize,colsNum } = storeToRefs(layoutStore)
+const { baseMargin, baseSize, colsNum } = storeToRefs(layoutStore)
 defineOptions({
   name: 'widget'
 })
-const props = defineProps({
+const props: any = defineProps({
   widget: {
     type: Object,
     default: () => ({})
@@ -53,7 +53,7 @@ const iconScale = computed(() => {
 })
 
 const handleAdd = () => {
-  layoutStore.addWidget(props.widget)
+  layoutStore.addWidget(props.widget, props.component)
 }
 
 const handleDel = () => {
@@ -78,7 +78,6 @@ const handleDel = () => {
         :style="iconScale"
       />
     </template>
-    11---{{ colsNum }}
     <component
       class="overflow-hidden rounded-lg bg-white"
       :style="widgetWH"

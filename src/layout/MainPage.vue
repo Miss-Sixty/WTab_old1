@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { Grid } from '@/layout/Grid'
+import { Grid, GridItem } from '@/layout/Grid'
+import useLayoutStore from '@/stores/layout'
+import Widget from '@/widgets/index.vue'
+const layoutStore = useLayoutStore()
+const { layouts, baseMargin, baseSize, colsNum, editMode } = storeToRefs(layoutStore)
 
 defineOptions({
   name: 'MainPage'
@@ -7,7 +11,17 @@ defineOptions({
 </script>
 
 <template>
-  <main class="py-10 h-full">
-    <Grid></Grid>
+  <main class="h-full py-10">
+    <Grid
+      v-model="layouts"
+      :colsNum="colsNum"
+      :baseSize="baseSize"
+      :baseMargin="baseMargin"
+      :editMode="editMode"
+    >
+      <GridItem v-for="item in layouts" :key="item.id" :id="item.id">
+        <Widget :widget="item" :component="item.component" />
+      </GridItem>
+    </Grid>
   </main>
 </template>

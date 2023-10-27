@@ -13,5 +13,7 @@ const widthStyle = computed(() => {
 </script>
 
 <template>
-  <div class="m-auto h-full bg-slate-600" :style="{ width: widthStyle }">grid-{{ widthStyle }}</div>
+  <div class="m-auto h-full bg-slate-600" :style="{ width: widthStyle }">
+    <slot />
+  </div>
 </template>

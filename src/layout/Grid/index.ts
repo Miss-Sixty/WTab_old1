@@ -1,4 +1,4 @@
 import Grid from './index.vue'
-// import GridItem from './GridItem.vue'
+import GridItem from './item.vue'
 
-export { Grid }
+export { Grid, GridItem }

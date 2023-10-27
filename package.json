@@ -20,6 +20,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vueuse/core": "^10.5.0",
     "dayjs": "^1.11.10",
+    "nanoid": "^5.0.2",
     "pinia": "^2.1.7",
     "swiper": "^10.3.1",
     "unhead": "^1.7.4",
