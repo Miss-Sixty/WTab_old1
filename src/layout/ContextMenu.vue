@@ -3,9 +3,19 @@ import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 import { onClickOutside, unrefElement } from '@vueuse/core'
 import BaseSettings from '@/layout/settings/BaseSettings.vue'
 import About from '@/layout/settings/About.vue'
-import AddWidgets from '@/layout/settings/AddWidgets.vue'
+import useLayoutStore from '@/stores/layout'
+const layoutStore = useLayoutStore()
+const { editMode } = storeToRefs(layoutStore)
+
 defineOptions({
   name: 'ContextMenu'
+})
+const emit = defineEmits(['update:addWidget'])
+const props = defineProps({
+  addWidget: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const options: any = {
@@ -90,7 +100,6 @@ const handleClick = (item: any) => {
 
 const baseSettingDialogVisible = ref(false)
 const aboutDialogVisible = ref(false)
-const addWidgetsVisible = ref(false)
 const contextmenuData = [
   {
     text: '常规设置',
@@ -102,7 +111,13 @@ const contextmenuData = [
     text: '添加小组件',
     divided: true,
     visibles: ['settingIcon', 'homeContextmenu'],
-    onclick: () => (addWidgetsVisible.value = true)
+    onclick: () => emit('update:addWidget', true)
+  },
+  {
+    text: '编辑主页',
+    divided: false,
+    visibles: ['settingIcon', 'homeContextmenu'],
+    onclick: () => (editMode.value = true)
   },
   {
     text: '关于',
@@ -146,5 +161,4 @@ defineExpose({ show })
 
   <BaseSettings v-model="baseSettingDialogVisible" />
   <About v-model="aboutDialogVisible" />
-  <AddWidgets v-model="addWidgetsVisible" />
 </template>

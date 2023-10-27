@@ -2,6 +2,7 @@
 import HeaderPage from '@/layout/HeaderPage.vue'
 import MainPage from '@/layout/MainPage.vue'
 import ContextMenu from '@/layout/ContextMenu.vue'
+import AddWidgets from '@/layout/settings/AddWidgets.vue'
 
 const contextMenuRef = ref()
 const handleSettingIcon = (ref: Ref) => {
@@ -13,12 +14,17 @@ const handleHomeContextmenu = (e: Event) => {
 }
 
 const dialogVisible = ref(false)
+const addWidgetsVisible = ref(false)
 </script>
 
 <template>
   <div class="relative h-full" @contextmenu.prevent="handleHomeContextmenu">
-    <HeaderPage @handleSettingIcon="handleSettingIcon" />
+    <HeaderPage
+      @handleSettingIcon="handleSettingIcon"
+      @handleAddWidget="addWidgetsVisible = true"
+    />
     <MainPage />
-    <ContextMenu ref="contextMenuRef" />
+    <ContextMenu ref="contextMenuRef" v-model:addWidget="addWidgetsVisible" />
+    <AddWidgets v-model="addWidgetsVisible" />
   </div>
 </template>

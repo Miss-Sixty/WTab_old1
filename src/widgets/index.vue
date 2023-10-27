@@ -52,9 +52,13 @@ const iconScale = computed(() => {
   }
 })
 
-const handleAdd = () => {}
+const handleAdd = () => {
+  layoutStore.addWidget(props.widget)
+}
 
-const handleDel = () => {}
+const handleDel = () => {
+  layoutStore.delWidget(props.widget)
+}
 </script>
 <template>
   <div class="relative" :style="{ ...widgetWH, ...scale }">
@@ -75,7 +79,7 @@ const handleDel = () => {}
       />
     </template>
     <component
-      class="rounded-lg bg-white"
+      class="overflow-hidden rounded-lg bg-white"
       :style="widgetWH"
       :is="component"
       :type="type"
