@@ -13,7 +13,6 @@ const handleHomeContextmenu = (e: Event) => {
   contextMenuRef.value.show('homeContextmenu', e)
 }
 
-const dialogVisible = ref(false)
 const addWidgetsVisible = ref(false)
 </script>
 

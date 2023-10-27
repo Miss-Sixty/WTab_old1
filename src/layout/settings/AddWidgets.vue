@@ -8,7 +8,6 @@ const widgetList = shallowRef()
 const init = async () => {
   const res = await initWidgetJson()
   widgetList.value = res
-  console.log(11, widgetList.value)
 }
 
 init()
