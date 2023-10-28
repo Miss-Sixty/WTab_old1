@@ -9,13 +9,16 @@ const props = defineProps({
     default: () => []
   },
   colsNum: {
-    type: Number
+    type: Number,
+    required: true
   },
   baseSize: {
-    type: Number
+    type: Number,
+    required: true
   },
   baseMargin: {
-    type: Number
+    type: Number,
+    required: true
   }
 })
 
@@ -47,6 +50,6 @@ provide('gridContextKey', {
 
 <template>
   <div class="relative m-auto bg-slate-600" :style="{ width: widthStyle, height: heightStyle }">
-    <slot />
+    {{ baseMargin }} <slot />
   </div>
 </template>
