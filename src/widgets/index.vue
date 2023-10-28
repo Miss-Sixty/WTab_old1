@@ -2,7 +2,7 @@
 import useLayoutStore from '@/stores/layout'
 import { IconPlus, IconMinus } from '@tabler/icons-vue'
 const layoutStore = useLayoutStore()
-const { baseMargin, baseSize, colsNum } = storeToRefs(layoutStore)
+const { baseMargin, baseSize } = storeToRefs(layoutStore)
 defineOptions({
   name: 'widget'
 })

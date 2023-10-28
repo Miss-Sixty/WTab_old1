@@ -3,31 +3,101 @@ import { useBreakpoints } from '@vueuse/core'
 import dayjs from 'dayjs'
 import { nanoid } from 'nanoid/non-secure'
 
-// 计算可以放下的x,y
-const getXYByWH: any = (w: number, h: number, layouts: any, cols: number) => {
-  return new Promise((resolve, reject) => {
-    const x = 0
-    const y = 0
-    if (layouts.length === 0) resolve([x, y])
-
-    resolve([x, y])
-  })
+function findPosition([widgetW, widgetH]: [number, number], layouts: any, colsNum: number) {
+  for (let y = 0; ; y++) {
+    for (let x = 0; x <= colsNum - widgetW; x++) {
+      let canPlace = true
+      for (let i = 0; i < layouts.length; i++) {
+        const rect = layouts[i]
+        const [rectX, rectY] = rect.position[colsNum]
+        const [rectW, rectH] = rect.widgetSize.split(':').map(Number)
+        if (
+          x <= rectX + rectW - 1 &&
+          x + widgetW - 1 >= rectX &&
+          y <= rectY + rectH - 1 &&
+          y + widgetH - 1 >= rectY
+        ) {
+          canPlace = false
+          break
+        }
+      }
+      if (canPlace) {
+        return [x, y]
+      }
+    }
+  }
 }
+
 export default defineStore('storeLayout', () => {
   const baseSize = ref(74) // 图标大小
   const baseMargin = ref(18) // 图标间距
   const editMode = ref(false) // 编辑模式
-  const layouts: any = ref([]) // 布局组件数据
+  const layouts: any = ref([
+    {
+      id: 'externalLink-Za3O9qYxkteQbsBfK1CXW',
+      widgetName: '外链1',
+      updateTime: '',
+      widgetSize: '1:1',
+      widgetData: {
+        protocol: '',
+        src: '',
+        bgColor: '',
+        iconType: 'online',
+        onlineIcon: '',
+        pureIcon: '',
+        localIcon: ''
+      },
+      position: { '8': [0, 0] },
+      update: 1698495644435,
+      component: 'externalLink'
+    },
+    {
+      id: 'externalLink-cgazx8NN3NdWj6cmLgkzL',
+      widgetName: '外链3',
+      updateTime: '',
+      widgetSize: '2:1',
+      widgetData: {
+        protocol: '',
+        src: '',
+        bgColor: '',
+        iconType: 'online',
+        onlineIcon: '',
+        pureIcon: '',
+        localIcon: ''
+      },
+      position: { '8': [1, 0] },
+      update: 1698495742220,
+      component: 'externalLink'
+    },
+    {
+      id: 'externalLink-tvE4E05qInxb2xDDvdusa',
+      widgetName: '外链4',
+      updateTime: '',
+      widgetSize: '3:2',
+      widgetData: {
+        protocol: '',
+        src: '',
+        bgColor: '',
+        iconType: 'online',
+        onlineIcon: '',
+        pureIcon: '',
+        localIcon: ''
+      },
+      position: { '8': [3, 0] },
+      update: 1698495744815,
+      component: 'externalLink'
+    }
+  ]) // 布局组件数据
 
   // 布局宽度数据
   const breakpoints = ref({
-    4: 475,
-    8: 705,
-    12: 1050,
-    14: 1225,
-    16: 1400,
-    18: 1575,
-    20: 1750
+    // 4: 475,
+    8: 705
+    // 12: 1050,
+    // 14: 1225,
+    // 16: 1400,
+    // 18: 1575,
+    // 20: 1750
   })
   const breakpointsData = useBreakpoints(breakpoints.value)
   const current: ComputedRef<string[]> = breakpointsData.current() //当前布局断点
@@ -38,21 +108,38 @@ export default defineStore('storeLayout', () => {
     return Number(colsNum)
   })
 
-  const addWidget = async (widget: any, component: 'string') => {
+  const addWidget = (widget: any, component: 'string') => {
     console.log('addWidget', widget)
-    const position: any = {}
-    const [w, h] = widget.widgetSize.split(':')
-    const [x, y] = await getXYByWH(Number(w), Number(h), layouts.value, colsNum.value)
-    position[colsNum.value] = [x, y]
-    const date = dayjs().valueOf()
-    const id = nanoid() + date
-    layouts.value.push({ id, ...widget, position, update: date, component })
-    // TODO: 异步计算 breakpoints 中其他的 position 值
+
+    const position: any = {} // 布局位置
+    const [w, h] = widget.widgetSize.split(':').map(Number)
+
+    for (const colsNum in breakpoints.value) {
+      // 首次添加
+      if (layouts.value.length === 0) {
+        position[colsNum] = [0, 0]
+        continue
+      }
+
+      const [x, y] = findPosition([w, h], layouts.value, +colsNum)
+      position[colsNum] = [x, y]
+    }
+    const id = component + '-' + nanoid()
+    layouts.value.push({ id, ...widget, position, update: dayjs().valueOf(), component })
   }
 
   const delWidget = (widget: any) => {
     console.log('delWidget', widget)
   }
 
-  return { baseSize, baseMargin, addWidget, delWidget, editMode, breakpoints, colsNum, layouts }
+  return {
+    baseSize,
+    baseMargin,
+    addWidget,
+    delWidget,
+    editMode,
+    breakpoints,
+    colsNum,
+    layouts
+  }
 })
