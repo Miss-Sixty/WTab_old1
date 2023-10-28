@@ -38,7 +38,7 @@ const initStyle = computed(() => {
 </script>
 
 <template>
-  <div class="absolute" :style="initStyle">
+  <div id="grid-item" class="absolute" :style="initStyle">
     <slot />
   </div>
 </template>

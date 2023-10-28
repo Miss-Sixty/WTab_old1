@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import useGesture from '@/hooks/useGesture'
 defineOptions({
   name: 'Grid'
 })
@@ -19,6 +20,10 @@ const props = defineProps({
   baseMargin: {
     type: Number,
     required: true
+  },
+  editMode: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -40,6 +45,13 @@ const heightStyle = computed(() => {
   return `${(y + h) * (props.baseSize + props.baseMargin) - props.baseMargin}px`
 })
 
+const gridRef = ref<HTMLElement | null>(null)
+// 手势
+const { dragging } = useGesture({
+  listener: computed(() => props.editMode), // 是否开启手势
+  el: gridRef // 绑定的元素
+})
+
 provide('gridContextKey', {
   colsNum: computed(() => props.colsNum),
   baseSize: computed(() => props.baseSize),
@@ -49,7 +61,11 @@ provide('gridContextKey', {
 </script>
 
 <template>
-  <div class="relative m-auto bg-slate-600" :style="{ width: widthStyle, height: heightStyle }">
-    {{ baseMargin }} <slot />
+  <div
+    ref="gridRef"
+    class="relative m-auto bg-slate-600"
+    :style="{ width: widthStyle, height: heightStyle }"
+  >
+    <slot />
   </div>
 </template>

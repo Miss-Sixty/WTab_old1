@@ -16,4 +16,9 @@ const props = defineProps({
 
 </script>
 
-<template><div>{{widget}}</div></template>
+<template><div>
+  <p id="1">111</p>
+  <p id="2">222</p>
+  <p id="3">333</p>
+  <p id="4">444</p>
+</div></template>
