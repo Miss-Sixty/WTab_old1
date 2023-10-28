@@ -37,7 +37,7 @@ const widgetWH = computed(() => {
 const scale = computed(() => {
   const [w, h] = wh.value
   let scale = 1
-  if (h > 2 || w > 4) scale = 0.65
+  if (props.type === 'add' && (h > 2 || w > 4)) scale = 0.65
   return {
     transform: `scale(${scale})`
   }
@@ -46,7 +46,7 @@ const scale = computed(() => {
 const iconScale = computed(() => {
   const [w, h] = wh.value
   let scale = 1
-  if (h > 2 || w > 4) scale = 1.5
+  if (props.type === 'add' && (h > 2 || w > 4)) scale = 1.5
   return {
     transform: `translate(-25%, -25%) scale(${scale})`
   }
