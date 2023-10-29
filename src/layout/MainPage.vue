@@ -11,7 +11,7 @@ defineOptions({
 </script>
 
 <template>
-  <main class="h-full py-10">
+  <main class="h-full overflow-y-auto px-1 py-10">
     <Grid
       v-model="layouts"
       :colsNum="colsNum"

@@ -69,7 +69,11 @@ provide('gridContextKey', {
 </script>
 
 <template>
-  <div ref="gridRef" class="relative m-auto" :style="{ width: widthStyle, height: heightStyle }">
+  <div
+    ref="gridRef"
+    class="relative m-auto transition-all"
+    :style="{ width: widthStyle, height: heightStyle }"
+  >
     <GridItem
       class="bg-primary-medium"
       :key="placeholderData?.id"
