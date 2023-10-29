@@ -107,11 +107,11 @@ export default (config: any) => {
     }
     startXY.value = [0, 0]
     childXY.value = [0, 0]
-    placeholderData.value = undefined
     draggingId.value = ''
     setTimeout(() => {
       dragging.value = false
-    }, 200)
+      placeholderData.value = undefined
+    }, 150)
   }
 
   return { dragging, childXY, draggingId, draggingData, placeholderData }
