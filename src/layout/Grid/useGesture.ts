@@ -14,7 +14,7 @@ export default (config: any) => {
       startEventListener = useEventListener(el.value, 'pointerdown', start)
       moveEventListener = useEventListener(window, 'pointermove', move)
       endEventListener = useEventListener(window, 'pointerup', end)
-      cancelEventListener = useEventListener(window, 'pointercancel', cancel)
+      cancelEventListener = useEventListener(window, 'pointercancel', end)
     } else {
       startEventListener()
       moveEventListener()
@@ -33,6 +33,16 @@ export default (config: any) => {
   const draggingData = computed(() =>
     layouts.value.find((item: any) => item.id === draggingId.value)
   )
+
+  const draggingXYWH = computed(() => {
+    const { widgetSize, position } = draggingData.value
+    const [widgetW, widgetH] = widgetSize.split(':').map(Number)
+    const [x, y] = position[colsNum.value]
+    return { x, y, w: widgetW, h: widgetH }
+  })
+
+  const placeholderData = ref()
+
   const start = (e: any) => {
     if (e.button !== 0) return
     e.preventDefault()
@@ -52,6 +62,7 @@ export default (config: any) => {
     }
 
     if (!child) return
+    placeholderData.value = { id: 'placeholder', ...draggingXYWH.value }
     pointerDown.value = true
 
     const childRect = child.getBoundingClientRect() // 记录鼠标按下时的小组件坐标
@@ -64,33 +75,44 @@ export default (config: any) => {
   }
   const move = (e: any) => {
     if (!pointerDown.value) return
+    dragging.value = true
     const [startX, startY] = startXY.value
     childXY.value = [e.x - startX, e.y - startY]
 
     const [childX, childY] = childXY.value
 
-    let gridX = Math.round((childX - baseMargin.value) / (baseSize.value + baseMargin.value))
-    let gridY = Math.round((childY - baseMargin.value) / (baseSize.value + baseMargin.value))
+    let placeholderX = Math.round((childX - baseMargin.value) / (baseSize.value + baseMargin.value))
+    let placeholderY = Math.round((childY - baseMargin.value) / (baseSize.value + baseMargin.value))
 
     // 边界计算，超出边界时，placeholderGridItem 不可移动到该位置，且不与其他元素重叠
     const { widgetSize } = draggingData.value
-    const [widgetW] = widgetSize.split(':')
-    if (gridX + widgetW > colsNum.value) {
-      gridX = colsNum.value - widgetW
+    const [widgetW] = widgetSize.split(':').map(Number)
+
+    if (placeholderX + widgetW > colsNum.value) {
+      placeholderX = colsNum.value - widgetW
     }
-    if (gridX <= 0) gridX = 0
-    if (gridY <= 0) gridY = 0
+    if (placeholderX <= 0) placeholderX = 0
+    if (placeholderY <= 0) placeholderY = 0
+    placeholderData.value = {
+      ...placeholderData.value,
+      x: placeholderX,
+      y: placeholderY
+    }
   }
 
   const end = (e: any) => {
     console.log('end', e)
     pointerDown.value = false
+    const { x, y } = placeholderData.value
+    const widgetData = layouts.value.find((item: any) => item.id === draggingId.value)
+    widgetData.position[colsNum.value] = [x, y]
+    startXY.value = [0, 0]
+    childXY.value = [0, 0]
+    draggingId.value = ''
+    setTimeout(() => {
+      dragging.value = false
+    }, 200)
   }
 
-  const cancel = (e: any) => {
-    console.log('cancel', e)
-    pointerDown.value = false
-  }
-
-  return { dragging, childXY, draggingId }
+  return { dragging, childXY, draggingId, draggingData, placeholderData }
 }

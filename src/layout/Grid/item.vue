@@ -8,6 +8,10 @@ const props = defineProps({
   id: {
     type: String,
     default: ''
+  },
+  placeholder: {
+    type: Object,
+    default: () => ({})
   }
 })
 
@@ -21,19 +25,30 @@ const dragingData: any = computed(() => {
   return layouts.value.find((item: any) => item.id === props.id)
 })
 
-// 初始排序
-const initStyle = computed(() => {
+const xywh = computed(() => {
+  if (!props.id) return
+  if (props.id === 'placeholder') {
+    const { x, y, w, h } = props.placeholder
+    return { x, y, w, h }
+  }
+
   const { position, widgetSize } = dragingData.value
   const [x, y] = position[colsNum.value]
-  const [w, h] = widgetSize.split(':')
+  const [w, h] = widgetSize.split(':').map(Number)
+  return { x, y, w, h }
+})
+
+// 初始排序
+const initStyle = computed(() => {
+  if (!xywh.value) return
   return {
     transform: `translate3d(
-        ${x * (baseMargin.value + baseSize.value)}px,
-        ${y * (baseMargin.value + baseSize.value)}px,
+        ${xywh.value.x * (baseMargin.value + baseSize.value)}px,
+        ${xywh.value.y * (baseMargin.value + baseSize.value)}px,
         0
     )`,
-    width: `${w * baseSize.value + (w - 1) * baseMargin.value}px`,
-    height: `${h * baseSize.value + (h - 1) * baseMargin.value}px`
+    width: `${xywh.value.w * baseSize.value + (xywh.value.w - 1) * baseMargin.value}px`,
+    height: `${xywh.value.h * baseSize.value + (xywh.value.h - 1) * baseMargin.value}px`
   }
 })
 
@@ -51,7 +66,11 @@ const dragStyle = computed(() => {
 </script>
 
 <template>
-  <div :id="`grid-item-${id}`" class="absolute" :style="{ ...initStyle, ...dragStyle }">
+  <div
+    :id="`grid-item-${id}`"
+    class="absolute rounded-lg transition-all"
+    :style="{ ...initStyle, ...dragStyle }"
+  >
     <slot />
   </div>
 </template>

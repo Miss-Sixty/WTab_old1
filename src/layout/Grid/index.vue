@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import useGesture from '@/hooks/useGesture'
+import useGesture from './useGesture'
+import { GridItem } from '@/layout/Grid'
 defineOptions({
   name: 'Grid'
 })
@@ -47,7 +48,7 @@ const heightStyle = computed(() => {
 
 const gridRef = ref<HTMLElement | null>(null)
 // 手势
-const { dragging, childXY, draggingId } = useGesture({
+const { dragging, childXY, draggingId, draggingData, placeholderData } = useGesture({
   listener: computed(() => props.editMode), // 是否开启手势
   el: gridRef, // 绑定的元素
   baseSize: computed(() => props.baseSize), // 基础尺寸
@@ -68,11 +69,15 @@ provide('gridContextKey', {
 </script>
 
 <template>
-  <div
-    ref="gridRef"
-    class="relative m-auto bg-slate-600"
-    :style="{ width: widthStyle, height: heightStyle }"
-  >
+  <div ref="gridRef" class="relative m-auto" :style="{ width: widthStyle, height: heightStyle }">
+    <GridItem
+      class="bg-primary-medium"
+      :key="placeholderData?.id"
+      :id="placeholderData?.id"
+      :placeholder="placeholderData"
+      v-show="dragging"
+    />
     <slot />
   </div>
 </template>
+@/layout/Grid/useGesture
