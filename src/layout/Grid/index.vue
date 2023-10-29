@@ -48,7 +48,7 @@ const heightStyle = computed(() => {
 
 const gridRef = ref<HTMLElement | null>(null)
 // 手势
-const { dragging, childXY, draggingId, draggingData, placeholderData } = useGesture({
+const { dragging, childXY, draggingId, placeholderData } = useGesture({
   listener: computed(() => props.editMode), // 是否开启手势
   el: gridRef, // 绑定的元素
   baseSize: computed(() => props.baseSize), // 基础尺寸

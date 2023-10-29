@@ -30,8 +30,10 @@ const settingRef = ref()
         <Button size="sm" key="finish" @click="editMode = false">完成</Button>
       </div>
     </Transition>
-    <Button size="sm" @click.stop="$emit('handleSettingIcon', settingRef)" ref="settingRef">
-      <Settings class="h-5 w-5 fill-white" />
-    </Button>
+    <Settings
+      @click.stop="$emit('handleSettingIcon', settingRef)"
+      ref="settingRef"
+      class="h-5 w-5 cursor-pointer fill-white opacity-30 transition hover:opacity-80"
+    />
   </header>
 </template>

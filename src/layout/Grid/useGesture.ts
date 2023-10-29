@@ -46,7 +46,6 @@ export default (config: any) => {
   const start = (e: any) => {
     if (e.button !== 0) return
     e.preventDefault()
-    console.log('start', e)
     let child: any = e.target
 
     // 一直查找父级，如果找到e.target还没找到 id 里有grid-item，就停止查找
@@ -101,13 +100,14 @@ export default (config: any) => {
   }
 
   const end = (e: any) => {
-    console.log('end', e)
     pointerDown.value = false
-    const { x, y } = placeholderData.value
-    const widgetData = layouts.value.find((item: any) => item.id === draggingId.value)
-    widgetData.position[colsNum.value] = [x, y]
+    if (placeholderData.value) {
+      const { x, y } = placeholderData.value
+      draggingData.value.position[colsNum.value] = [x, y]
+    }
     startXY.value = [0, 0]
     childXY.value = [0, 0]
+    placeholderData.value = undefined
     draggingId.value = ''
     setTimeout(() => {
       dragging.value = false
