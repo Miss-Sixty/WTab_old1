@@ -15,7 +15,7 @@ export function sendToVercelAnalytics(metric: any) {
     href: window.location.href,
     event_name: metric.name,
     value: metric.value.toString(),
-    speed: type
+    speed: type.value
   }
 
   const blob = new Blob([new URLSearchParams(body).toString()], {
