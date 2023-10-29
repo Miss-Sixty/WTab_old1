@@ -1,6 +1,13 @@
-import { useNetwork } from '@vueuse/core'
 const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals'
-const { type } = useNetwork()
+
+function getConnectionSpeed() {
+  return 'connection' in navigator &&
+    navigator['connection'] &&
+    // @ts-ignore
+    'effectiveType' in navigator['connection']
+    ? navigator['connection']['effectiveType']
+    : ''
+}
 
 export function sendToVercelAnalytics(metric: any) {
   const analyticsId = process.env.VERCEL_ANALYTICS_ID
@@ -15,7 +22,7 @@ export function sendToVercelAnalytics(metric: any) {
     href: window.location.href,
     event_name: metric.name,
     value: metric.value.toString(),
-    speed: type.value
+    speed: getConnectionSpeed()
   }
 
   const blob = new Blob([new URLSearchParams(body).toString()], {
