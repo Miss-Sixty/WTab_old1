@@ -61,7 +61,7 @@ const handleDel = () => {
 }
 </script>
 <template>
-  <div class="relative" :style="{ ...widgetWH, ...scale }">
+  <div class="relative select-none" :style="{ ...widgetWH, ...scale }">
     <template v-if="type">
       <IconPlus
         v-if="type === 'add'"

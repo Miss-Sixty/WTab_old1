@@ -11,7 +11,8 @@ const props = defineProps({
   }
 })
 
-const { colsNum, baseSize, baseMargin, layouts }: any = inject('gridContextKey')
+const { colsNum, baseSize, baseMargin, layouts, childXY, draggingId }: any =
+  inject('gridContextKey')
 
 /**
  * item的数据
@@ -35,10 +36,22 @@ const initStyle = computed(() => {
     height: `${h * baseSize.value + (h - 1) * baseMargin.value}px`
   }
 })
+
+const dragStyle = computed(() => {
+  if (props.id !== draggingId.value) return
+  if (!childXY.value?.length) return
+  const [x, y] = childXY.value
+
+  return {
+    transform: `translate3d(${x}px, ${y}px,0)`,
+    zIndex: 2,
+    transition: 'none'
+  }
+})
 </script>
 
 <template>
-  <div id="grid-item" class="absolute" :style="initStyle">
+  <div :id="`grid-item-${id}`" class="absolute" :style="{ ...initStyle, ...dragStyle }">
     <slot />
   </div>
 </template>

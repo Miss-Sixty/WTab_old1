@@ -47,16 +47,23 @@ const heightStyle = computed(() => {
 
 const gridRef = ref<HTMLElement | null>(null)
 // 手势
-const { dragging } = useGesture({
+const { dragging, childXY, draggingId } = useGesture({
   listener: computed(() => props.editMode), // 是否开启手势
-  el: gridRef // 绑定的元素
+  el: gridRef, // 绑定的元素
+  baseSize: computed(() => props.baseSize), // 基础尺寸
+  baseMargin: computed(() => props.baseMargin), // 基础间距
+  layouts: computed(() => props.modelValue),
+  colsNum: computed(() => props.colsNum)
 })
 
 provide('gridContextKey', {
   colsNum: computed(() => props.colsNum),
   baseSize: computed(() => props.baseSize),
   baseMargin: computed(() => props.baseMargin),
-  layouts: computed(() => props.modelValue)
+  layouts: computed(() => props.modelValue),
+  childXY,
+  draggingId,
+  dragging
 })
 </script>
 
