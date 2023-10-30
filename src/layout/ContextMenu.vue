@@ -38,8 +38,13 @@ const options: any = {
       {
         fn: ({ placement }: any) => {
           console.log(1111212, placement)
-
-          return (styles.value.transformOrigin = placement === 'bottom-end' ? '90% 0%' : '0% 0%')
+          const placementMap: any = {
+            'bottom-start': '0% 0%',
+            'bottom-end': '100% 0%',
+            'top-start': '0% 100%',
+            'top-end': '100% 100%'
+          }
+          return (styles.value.transformOrigin = placementMap[placement])
         }
       }
     ],

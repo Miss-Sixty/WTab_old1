@@ -67,6 +67,7 @@ const dragStyle = computed(() => {
 
 const itemRef = ref()
 const onPress = (ev: Event) => {
+  if (editMode.value) return
   emit('langTap', { ev, ref: itemRef.value })
 }
 
