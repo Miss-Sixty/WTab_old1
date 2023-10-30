@@ -54,8 +54,6 @@ export default defineStore('storeLayout', () => {
   })
 
   const addWidget = (widget: any, component: 'string') => {
-    console.log('addWidget', widget)
-
     const position: any = {} // 布局位置
     const [w, h] = widget.widgetSize.split(':').map(Number)
 
@@ -74,7 +72,8 @@ export default defineStore('storeLayout', () => {
   }
 
   const delWidget = (widget: any) => {
-    console.log('delWidget', widget)
+    const index = layouts.value.findIndex((item: any) => item.id === widget.id)
+    layouts.value.splice(index, 1)
   }
 
   return {

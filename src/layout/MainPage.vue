@@ -20,7 +20,7 @@ defineOptions({
       :editMode="editMode"
     >
       <GridItem v-for="item in layouts" :key="item.id" :id="item.id">
-        <Widget :widget="item" :component="item.component" />
+        <Widget :type="editMode ? 'del' : ''" :widget="item" :component="item.component" />
       </GridItem>
     </Grid>
   </main>
