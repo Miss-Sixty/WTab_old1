@@ -13,6 +13,10 @@ export default {
           medium: withOpacityValue('--color-primary-medium'),
           default: withOpacityValue('--color-primary'),
           dark: withOpacityValue('--color-primary-dark')
+        },
+        danger: {
+          default: '#f56c6c',
+          medium: '#FFEBEB'
         }
       },
       keyframes: {

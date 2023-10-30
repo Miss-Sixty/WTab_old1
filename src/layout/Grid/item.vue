@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onLongPress } from '@vueuse/core'
-const emit = defineEmits(['langTap'])
+const emit = defineEmits(['widgetContextmenu'])
 defineOptions({
   name: 'GridItem'
 })
@@ -68,7 +68,7 @@ const dragStyle = computed(() => {
 const itemRef = ref()
 const onPress = (ev: Event) => {
   if (editMode.value) return
-  emit('langTap', { ev, ref: itemRef.value })
+  emit('widgetContextmenu', { ref: itemRef.value, id: props.id })
 }
 
 //按压
@@ -82,7 +82,7 @@ onLongPress(itemRef, onPress, { delay: 500 })
     :class="editMode ? 'touch-none' : 'touch-auto'"
     :style="{ ...initStyle, ...dragStyle }"
     ref="itemRef"
-    @contextmenu.prevent.stop
+    @contextmenu.prevent.stop="onPress"
   >
     <slot />
   </div>

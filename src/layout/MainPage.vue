@@ -2,7 +2,7 @@
 import { Grid, GridItem } from '@/layout/Grid'
 import useLayoutStore from '@/stores/layout'
 import Widget from '@/widgets/index.vue'
-const emit = defineEmits(['langTap'])
+const emit = defineEmits(['widgetContextmenu'])
 const layoutStore = useLayoutStore()
 const { layouts, baseMargin, baseSize, colsNum, editMode } = storeToRefs(layoutStore)
 
@@ -24,7 +24,7 @@ defineOptions({
         v-for="item in layouts"
         :key="item.id"
         :id="item.id"
-        @langTap="$emit('langTap', $event)"
+        @widgetContextmenu="$emit('widgetContextmenu', $event)"
       >
         <Widget :type="editMode ? 'del' : ''" :widget="item" :component="item.component" />
       </GridItem>

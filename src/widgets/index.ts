@@ -14,8 +14,5 @@ export const initWidgetJson = async () => {
     const widgetJsonModule = await widgetJsonModules[path]()
     widgetJson.push(widgetJsonModule.default)
   }
-
-  console.log('1212',widgetJson);
-  
   return widgetJson
 }

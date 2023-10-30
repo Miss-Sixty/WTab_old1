@@ -10,7 +10,7 @@ const { editMode } = storeToRefs(layoutStore)
 defineOptions({
   name: 'ContextMenu'
 })
-const emit = defineEmits(['update:addWidget'])
+const emit = defineEmits(['update:addWidget', 'del'])
 const props = defineProps({
   addWidget: {
     type: Boolean,
@@ -29,7 +29,7 @@ const options: any = {
     ],
     transformOrigin: '90% 0%'
   },
-  langTap: {
+  widgetContextmenu: {
     placement: 'bottom-start',
     middleware: [
       offset(6),
@@ -37,7 +37,6 @@ const options: any = {
       shift(),
       {
         fn: ({ placement }: any) => {
-          console.log(1111212, placement)
           const placementMap: any = {
             'bottom-start': '0% 0%',
             'bottom-end': '100% 0%',
@@ -66,7 +65,10 @@ const options: any = {
 const floatingRef = ref()
 const popperVisible = ref(false)
 const dialogType = ref('')
-const show = async (type: string, domOrRect: any) => {
+// 存储传来的数据
+const saveData = ref()
+const show = async (type: string, domOrRect: any, data: any) => {
+  saveData.value = data
   if (type === 'homeContextmenu') {
     domOrRect = getBoundingClientRect(domOrRect)
   }
@@ -112,6 +114,7 @@ const onContextmenu = async (reference: any, options: any = {}) => {
 // 点击外部关闭
 onClickOutside(floatingRef, () => {
   popperVisible.value = false
+  saveData.value = false
 })
 
 const handleClick = (item: any) => {
@@ -125,19 +128,26 @@ const contextmenuData = [
   {
     text: '常规设置',
     divided: false,
-    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
+    visibles: ['settingIcon', 'homeContextmenu', 'widgetContextmenu'],
     onclick: () => (baseSettingDialogVisible.value = true)
   },
   {
+    text: '删除此小组件',
+    divided: false,
+    delete: true,
+    visibles: ['widgetContextmenu'],
+    onclick: () => emit('del', saveData.value)
+  },
+  {
     text: '添加小组件',
-    divided: true,
-    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
+    divided: false,
+    visibles: ['settingIcon', 'homeContextmenu', 'widgetContextmenu'],
     onclick: () => emit('update:addWidget', true)
   },
   {
     text: '编辑主页',
     divided: false,
-    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
+    visibles: ['settingIcon', 'homeContextmenu', 'widgetContextmenu'],
     onclick: () => (editMode.value = true)
   },
   {
@@ -162,7 +172,7 @@ defineExpose({ show })
       leave-active-class="animate-zoom-out transform-gpu"
     >
       <ul
-        class="fixed z-auto min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-primary-medium p-2 shadow-sm transition-[left,top]"
+        class="fixed z-auto min-w-[150px] translate-x-0 translate-y-0 select-none rounded-md bg-primary-medium p-2 shadow-sm transition-[left,top]"
         :style="styles"
         v-show="popperVisible"
         ref="floatingRef"
@@ -170,7 +180,11 @@ defineExpose({ show })
         <template v-for="(item, i) in showMenu" :key="i">
           <li class="my-1.5 border-t border-primary-light" v-if="item.divided" />
           <li
-            class="cursor-pointer rounded px-2.5 py-1.5 text-sm transition-[background-color] hover:bg-primary-light"
+            :class="[
+              item.delete ? 'text-danger-default' : '',
+              item.delete ? 'hover:bg-danger-medium' : 'hover:bg-primary-light'
+            ]"
+            class="cursor-pointer rounded px-2.5 py-1.5 text-sm transition-[background-color]"
             @click="handleClick(item)"
           >
             {{ item.text }}
