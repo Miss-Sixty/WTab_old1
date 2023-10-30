@@ -64,7 +64,8 @@ provide('gridContextKey', {
   layouts: computed(() => props.modelValue),
   childXY,
   draggingId,
-  dragging
+  dragging,
+  editMode: computed(() => props.editMode)
 })
 </script>
 
@@ -84,4 +85,3 @@ provide('gridContextKey', {
     <slot />
   </div>
 </template>
-@/layout/Grid/useGesture

@@ -74,6 +74,7 @@ export default (config: any) => {
   }
   const move = (e: any) => {
     if (!pointerDown.value) return
+    e.preventDefault()
     dragging.value = true
     const [startX, startY] = startXY.value
     childXY.value = [e.x - startX, e.y - startY]
@@ -100,6 +101,8 @@ export default (config: any) => {
   }
 
   const end = (e: any) => {
+    if (!pointerDown.value) return
+    e.preventDefault()
     pointerDown.value = false
     if (placeholderData.value) {
       const { x, y } = placeholderData.value

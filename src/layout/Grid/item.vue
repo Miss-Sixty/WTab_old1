@@ -15,7 +15,7 @@ const props = defineProps({
   }
 })
 
-const { colsNum, baseSize, baseMargin, layouts, childXY, draggingId }: any =
+const { colsNum, baseSize, baseMargin, layouts, childXY, draggingId, editMode }: any =
   inject('gridContextKey')
 
 /**
@@ -69,6 +69,7 @@ const dragStyle = computed(() => {
   <div
     :id="`grid-item-${id}`"
     class="absolute rounded-lg transition-all"
+    :class="editMode ? 'touch-none' : 'touch-auto'"
     :style="{ ...initStyle, ...dragStyle }"
   >
     <slot />

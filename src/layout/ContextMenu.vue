@@ -141,7 +141,7 @@ defineExpose({ show })
       leave-active-class="animate-zoom-out transform-gpu"
     >
       <ul
-        class="fixed min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-primary-medium p-2 shadow-sm transition-[left,top]"
+        class="fixed z-auto min-w-[150px] translate-x-0 translate-y-0 rounded-md bg-primary-medium p-2 shadow-sm transition-[left,top]"
         :style="styles"
         v-show="popperVisible"
         ref="floatingRef"
