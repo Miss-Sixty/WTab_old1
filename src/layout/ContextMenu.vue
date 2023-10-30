@@ -29,6 +29,22 @@ const options: any = {
     ],
     transformOrigin: '90% 0%'
   },
+  langTap: {
+    placement: 'bottom-start',
+    middleware: [
+      offset(6),
+      flip(),
+      shift(),
+      {
+        fn: ({ placement }: any) => {
+          console.log(1111212, placement)
+
+          return (styles.value.transformOrigin = placement === 'bottom-end' ? '90% 0%' : '0% 0%')
+        }
+      }
+    ],
+    transformOrigin: '90% 0%'
+  },
   base: {
     placement: 'right-start',
     middleware: [
@@ -104,19 +120,19 @@ const contextmenuData = [
   {
     text: '常规设置',
     divided: false,
-    visibles: ['settingIcon', 'homeContextmenu'],
+    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
     onclick: () => (baseSettingDialogVisible.value = true)
   },
   {
     text: '添加小组件',
     divided: true,
-    visibles: ['settingIcon', 'homeContextmenu'],
+    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
     onclick: () => emit('update:addWidget', true)
   },
   {
     text: '编辑主页',
     divided: false,
-    visibles: ['settingIcon', 'homeContextmenu'],
+    visibles: ['settingIcon', 'homeContextmenu', 'langTap'],
     onclick: () => (editMode.value = true)
   },
   {

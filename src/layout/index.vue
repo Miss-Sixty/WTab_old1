@@ -13,6 +13,11 @@ const handleHomeContextmenu = (e: Event) => {
   contextMenuRef.value.show('homeContextmenu', e)
 }
 
+const handleLangTap = (e: any) => {
+  console.log(1212, e)
+  contextMenuRef.value.show('langTap', e.ref)
+}
+
 const addWidgetsVisible = ref(false)
 </script>
 
@@ -22,7 +27,7 @@ const addWidgetsVisible = ref(false)
       @handleSettingIcon="handleSettingIcon"
       @handleAddWidget="addWidgetsVisible = true"
     />
-    <MainPage />
+    <MainPage @langTap="handleLangTap" />
     <ContextMenu ref="contextMenuRef" v-model:addWidget="addWidgetsVisible" />
     <AddWidgets v-model="addWidgetsVisible" />
   </div>

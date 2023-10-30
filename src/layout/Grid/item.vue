@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import useLayoutStore from '@/stores/layout'
+import { onLongPress } from '@vueuse/core'
+const emit = defineEmits(['langTap'])
 defineOptions({
   name: 'GridItem'
 })
@@ -63,6 +64,14 @@ const dragStyle = computed(() => {
     transition: 'none'
   }
 })
+
+const itemRef = ref()
+const onPress = (ev: Event) => {
+  emit('langTap', { ev, ref: itemRef.value })
+}
+
+//按压
+onLongPress(itemRef, onPress, { delay: 500 })
 </script>
 
 <template>
@@ -71,6 +80,8 @@ const dragStyle = computed(() => {
     class="absolute rounded-lg transition-all"
     :class="editMode ? 'touch-none' : 'touch-auto'"
     :style="{ ...initStyle, ...dragStyle }"
+    ref="itemRef"
+    @contextmenu.prevent.stop
   >
     <slot />
   </div>
