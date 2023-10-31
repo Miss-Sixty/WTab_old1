@@ -133,14 +133,14 @@ const contextmenuData = [
   },
   {
     text: '删除此小组件',
-    divided: false,
+    divided: true,
     delete: true,
     visibles: ['widgetContextmenu'],
     onclick: () => emit('del', saveData.value)
   },
   {
     text: '添加小组件',
-    divided: false,
+    divided: () => ['settingIcon', 'homeContextmenu'].includes(dialogType.value),
     visibles: ['settingIcon', 'homeContextmenu', 'widgetContextmenu'],
     onclick: () => emit('update:addWidget', true)
   },
@@ -178,7 +178,10 @@ defineExpose({ show })
         ref="floatingRef"
       >
         <template v-for="(item, i) in showMenu" :key="i">
-          <li class="my-1.5 border-t border-primary-light" v-if="item.divided" />
+          <li
+            class="my-1.5 border-t border-primary-light"
+            v-if="typeof item.divided === 'boolean' ? item.divided : item.divided()"
+          />
           <li
             :class="[
               item.delete ? 'text-danger-default' : '',
